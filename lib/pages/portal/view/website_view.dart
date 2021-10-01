@@ -10,7 +10,7 @@ import '../../../authentication/model/user.dart';
 import '../../../authentication/service/auth_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../resources/locale_provider.dart';
-import '../../../resources/storage/storage_provider.dart';
+import '../../../resources/storage_provider.dart';
 import '../../../resources/theme.dart';
 import '../../../resources/utils.dart';
 import '../../../widgets/button.dart';
@@ -343,10 +343,11 @@ class WebsiteIcon extends StatelessWidget {
       future: StorageProvider.findImageUrl('websites/${website.id}/icon.png'),
       //Firebase Storage path
       builder: (context, snapshot) {
+
         ImageProvider image;
         image = const AssetImage('assets/icons/globe.png');
         if (snapshot.hasData) {
-          image = NetworkImage(snapshot.data);
+          image = Image.network(snapshot.data.toString()).image;
         }
 
         return CircleImage(
