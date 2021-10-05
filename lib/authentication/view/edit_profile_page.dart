@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../pages/filter/view/filter_dropdown.dart';
-import '../../resources/storage_provider.dart';
 import '../../resources/utils.dart';
 import '../../resources/validator.dart';
 import '../../widgets/button.dart';

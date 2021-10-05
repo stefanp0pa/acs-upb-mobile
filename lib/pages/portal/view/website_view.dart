@@ -374,7 +374,7 @@ class WebsiteIcon extends StatelessWidget {
     if (image == null) {
       return FutureBuilder(
           future: StorageProvider.findImageUrl(website.iconPath),
-      //Firebase Storage path
+      // Firebase Storage path
       builder: (context, snapshot) {
 
         ImageProvider oldImage;
