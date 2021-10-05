@@ -46,9 +46,9 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: [
           if (authProvider.isAuthenticated) ProfileCard(),
-          if (authProvider.isAuthenticated && !authProvider.isAnonymous
-          && Utils.feedbackEnabled
-          )
+          if (authProvider.isAuthenticated &&
+              !authProvider.isAnonymous &&
+              Utils.feedbackEnabled)
             FeedbackNudge(),
           if (authProvider.isAuthenticated && !authProvider.isAnonymous)
             UpcomingEventsCard(onShowMore: () => tabController?.animateTo(1)),
