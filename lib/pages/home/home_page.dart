@@ -7,6 +7,8 @@ import '../../generated/l10n.dart';
 import '../../navigation/routes.dart';
 import '../../resources/utils.dart';
 import '../../widgets/scaffold.dart';
+import '../classes/view/classes_page.dart';
+import '../search/view/search_page.dart';
 import 'faq_card.dart';
 import 'favourite_websites_card.dart';
 import 'feedback_nudge.dart';
@@ -26,6 +28,15 @@ class HomePage extends StatelessWidget {
     return AppScaffold(
       title: Text(S.current.navigationHome),
       actions: [
+        AppScaffoldAction(
+          icon: Icons.search,
+          tooltip: S.current.navigationSearch,
+          onPressed: () => {
+            Navigator.of(context).push(MaterialPageRoute<ClassesPage>(
+              builder: (_) => SearchPage(),
+            ))
+          },
+        ),
         AppScaffoldAction(
           icon: Icons.settings_outlined,
           tooltip: S.current.navigationSettings,

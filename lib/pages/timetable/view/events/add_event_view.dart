@@ -5,8 +5,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:rrule/rrule.dart';
-import 'package:time_machine/time_machine.dart' as time_machine show DayOfWeek;
 import 'package:time_machine/time_machine.dart' hide Interval;
+import 'package:time_machine/time_machine.dart' as time_machine show DayOfWeek;
 import 'package:time_machine/time_machine_text_patterns.dart';
 
 import '../../../../authentication/model/user.dart';
@@ -166,11 +166,9 @@ class _AddEventViewState extends State<AddEventView> {
         TextEditingController(text: widget.initialEvent?.location ?? '');
 
     final startHour = widget.initialEvent?.start?.hour ?? 8;
-    duration = widget.initialEvent?.period?.toTime()?.toDuration ??
-        const Duration(hours: 2);
+    duration = widget.initialEvent?.duration ?? const Duration(hours: 2);
     startDateTime = widget.initialEvent?.start
-            ?.copyWith(hour: startHour, minute: 0, second: 0, millisecond: 0)
-            ?.copyWithUtc() ??
+            ?.copyWith(hour: startHour, minute: 0, second: 0, millisecond: 0) ??
         0;
 
     List<_DayOfWeek> initialWeekDays = [
@@ -335,10 +333,6 @@ class _AddEventViewState extends State<AddEventView> {
                           onChanged: (_) => setState(() {}),
                         ),
                         timeIntervalPicker(),
-                        Divider(
-                          thickness: 0.7,
-                          color: Theme.of(context).hintColor,
-                        ),
                         if (weekSelected[WeekType.odd] != null &&
                             weekSelected[WeekType.even] != null)
                           FilterChipFormField(
@@ -353,7 +347,6 @@ class _AddEventViewState extends State<AddEventView> {
                           label: S.current.labelDay,
                           initialValues: weekDaySelected,
                         ),
-                        const SizedBox(height: 16),
                       ],
                     ),
                   const SizedBox(width: 16),
@@ -395,8 +388,9 @@ class _AddEventViewState extends State<AddEventView> {
         onPressed: () async {
           if (!formKey.currentState.validate()) return;
 
-          DateTime start =
-              semester.startDate.at(dateTime: startDateTime).copyWithUtc();
+          DateTime start = semester.startDate
+              .at(dateTime: startDateTime)
+              .copyWith(isUtc: true);
           if (weekSelected[WeekType.even] && !weekSelected[WeekType.odd]) {
             // Event is every even week, add a week to start date
             start = start.addDays(7);
@@ -416,13 +410,13 @@ class _AddEventViewState extends State<AddEventView> {
               until: semester.endDate
                   .add(const Duration(days: 1))
                   .atMidnight()
-                  .copyWithUtc());
+                  .copyWith(isUtc: true));
 
           final event = ClassEvent(
               teacher: selectedTeacher,
               rrule: rrule,
               start: start,
-              period: duration.toPeriod(),
+              duration: duration,
               id: widget.initialEvent?.id,
               relevance: relevanceController.customRelevance,
               degree: relevanceController.degree,
@@ -460,14 +454,10 @@ class _AddEventViewState extends State<AddEventView> {
         icon: Icons.more_vert_outlined,
         items: {
           S.current.actionDeleteEvent: () => showDialog<dynamic>(
-                context: context,
-                builder: _deletionConfirmationDialog,
-              )
+              context: context, builder: _deletionConfirmationDialog)
         },
         onPressed: () => showDialog<dynamic>(
-          context: context,
-          builder: _deletionConfirmationDialog,
-        ),
+            context: context, builder: _deletionConfirmationDialog),
       );
 
   Widget timeIntervalPicker() {
