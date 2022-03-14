@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../authentication/service/auth_provider.dart';
 import '../../../generated/l10n.dart';
-import '../../../resources/utils.dart';
+import '../../../resources/remote_config.dart';
 import '../../../widgets/class_icon.dart';
 import '../../../widgets/error_page.dart';
 import '../../../widgets/icon_text.dart';
@@ -63,7 +63,7 @@ class _ClassesPageState extends State<ClassesPage> {
       // TODO(IoanaAlexandru): Simply show all classes if user is not authenticated
       needsToBeAuthenticated: true,
       actions: [
-        if (Utils.feedbackEnabled)
+        if (RemoteConfigService.feedbackEnabled)
           AppScaffoldAction(
             icon: Icons.rate_review_outlined,
             tooltip: S.current.navigationClassesFeedbackChecklist,

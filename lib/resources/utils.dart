@@ -12,8 +12,6 @@ import '../authentication/service/auth_provider.dart';
 import '../generated/l10n.dart';
 import '../navigation/routes.dart';
 import '../widgets/toast.dart';
-import 'platform.dart';
-import 'remote_config.dart';
 
 export 'package:acs_upb_mobile/resources/platform.dart'
     if (dart.library.io) 'dart:io';
@@ -74,11 +72,6 @@ class Utils {
     appName: '\$appName',
     packageName: '\$packageName',
   );
-
-  static bool get feedbackEnabled {
-    if (!Platform.isAndroid && !Platform.isIOS) return false;
-    return RemoteConfigService.feedbackEnabled;
-  }
 
   static Future<Uint8List> convertToPNG(Uint8List image) async {
     final decodedImage = im.decodeImage(image);
