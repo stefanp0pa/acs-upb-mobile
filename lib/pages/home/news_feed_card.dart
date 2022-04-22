@@ -14,7 +14,7 @@ class NewsFeedCard extends StatelessWidget {
     return InfoCard<List<NewsFeedItem>>(
         title: S.current.navigationNewsFeed,
         showMoreButtonKey: const ValueKey('show_more_news_feed'),
-        onShowMore: () => Navigator.of(context).pushNamed(Routes.aggNewsFeed),
+        onShowMore: () => Navigator.of(context).pushNamed(Routes.newsFeed),
         future: Provider.of<NewsProvider>(context).fetchNewsFeedItems(limit: 2),
         builder: (final newsFeedItems) {
           return Column(
