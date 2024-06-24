@@ -1915,6 +1915,16 @@ class S {
     );
   }
 
+  /// `ACS News feed`
+  String get aggNavigationNewsFeed {
+    return Intl.message(
+      'ACS News feed',
+      name: 'aggNavigationNewsFeed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Class information`
   String get navigationClassInfo {
     return Intl.message(

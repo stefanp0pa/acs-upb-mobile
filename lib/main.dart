@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:acs_upb_mobile/pages/agg_news_feed/service/agg_news_provider.dart';
+import 'package:acs_upb_mobile/pages/agg_news_feed/view/agg_news_feed_page.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +29,7 @@ import 'pages/filter/service/filter_provider.dart';
 import 'pages/filter/view/filter_page.dart';
 import 'pages/news_feed/service/news_provider.dart';
 import 'pages/news_feed/view/news_feed_page.dart';
+import 'pages/agg_news_feed/view/agg_news_feed_page.dart';
 import 'pages/people/service/person_provider.dart';
 import 'pages/portal/service/website_provider.dart';
 import 'pages/settings/service/admin_provider.dart';
@@ -96,9 +99,9 @@ Future<void> main() async {
           ChangeNotifierProvider<PersonProvider>(
               create: (final _) => personProvider),
           ChangeNotifierProvider<QuestionProvider>(
-              create: (final _) => QuestionProvider()),
-          ChangeNotifierProvider<NewsProvider>(
-              create: (final _) => NewsProvider()),
+              create: (_) => QuestionProvider()),
+          ChangeNotifierProvider<NewsProvider>(create: (_) => NewsProvider()),
+          ChangeNotifierProvider<AggNewsProvider>(create: (_) => AggNewsProvider()),
           ChangeNotifierProxyProvider<AuthProvider, FilterProvider>(
             create: (final _) => FilterProvider(global: true),
             update: (final context, final authProvider, final filterProvider) {
@@ -172,17 +175,17 @@ class _MyAppState extends State<MyApp> {
           supportedLocales: S.delegate.supportedLocales,
           initialRoute: Routes.root,
           routes: {
-            Routes.root: (final _) => AppLoadingScreen(),
-            Routes.home: (final _) => const AppBottomNavigationBar(),
-            Routes.settings: (final _) => SettingsPage(),
-            Routes.login: (final _) => LoginView(),
-            Routes.signUp: (final _) => SignUpView(),
-            Routes.faq: (final _) => FaqPage(),
-            Routes.filter: (final _) => const FilterPage(),
-            Routes.newsFeed: (final _) => NewsFeedPage(),
-            Routes.requestPermissions: (final _) => RequestPermissionsPage(),
-            Routes.adminPanel: (final _) => const AdminPanelPage(),
-            Routes.feedbackForm: (final _) => FeedbackFormPage(),
+            Routes.root: (_) => AppLoadingScreen(),
+            Routes.home: (_) => const AppBottomNavigationBar(),
+            Routes.settings: (_) => SettingsPage(),
+            Routes.login: (_) => LoginView(),
+            Routes.signUp: (_) => SignUpView(),
+            Routes.faq: (_) => FaqPage(),
+            Routes.filter: (_) => const FilterPage(),
+            Routes.newsFeed: (_) => NewsFeedPage(),
+            Routes.aggNewsFeed: (_) => AggNewsFeedPage(),
+            Routes.requestPermissions: (_) => RequestPermissionsPage(),
+            Routes.adminPanel: (_) => const AdminPanelPage(),
           },
           navigatorObservers: widget.navigationObservers ?? [],
         ),
